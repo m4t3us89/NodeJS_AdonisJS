@@ -1,7 +1,7 @@
 'use strict'
 
 const User = use('App/Models/User')
-const Mail = use('Mail')
+const Mail = use('App/Providers/Mail')
 
 class AuthController {
   async register ({ request }) {
@@ -9,12 +9,14 @@ class AuthController {
 
     const user = await User.create(data)
 
-    await Mail.send('emails.welcome', user.toJSON(), message => {
-      message
-        .to(user.email)
-        .from('allissonmateus89@gmail.com')
-        .subject('Welcome to yardstick')
+    const mail = new Mail({
+      to: user.email,
+      subject: 'Obrigado por fazer parte da nossa equipe. =)',
+      template: 'emails.welcome',
+      others: user.toJSON()
     })
+
+    mail.send()
 
     return user
   }
