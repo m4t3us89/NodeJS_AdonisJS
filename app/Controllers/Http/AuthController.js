@@ -1,6 +1,6 @@
 'use strict'
 
-const User = use('App/Models/Use')
+const User = use('App/Models/User')
 const Mail = use('App/Providers/Mail')
 
 class AuthController {
