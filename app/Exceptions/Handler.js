@@ -35,7 +35,7 @@ class ExceptionHandler extends BaseExceptionHandler {
    * @return {void}
    */
   async report (error, { request }) {
-    sentry.captureException(error)
+    // sentry.captureException(error)
   }
 }
 

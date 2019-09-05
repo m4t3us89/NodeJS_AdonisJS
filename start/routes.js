@@ -24,6 +24,7 @@ Route.group(() => {
 
 Route.group(() => {
   Route.get('', 'TodoController.index')
+  Route.post('profile', 'TodoController.profile')
 })
   .prefix('api/todo')
   .middleware(['auth'])
