@@ -2,6 +2,16 @@
 
 /*
 |--------------------------------------------------------------------------
+|Monitoramento Sentry
+|--------------------------------------------------------------------------
+*/
+const Sentry = require('@sentry/node')
+Sentry.init({
+  dsn: 'https://2a27ab3dbb6541a4a65c7b6a4f79f54c@sentry.io/1552900'
+})
+
+/*
+|--------------------------------------------------------------------------
 | Providers
 |--------------------------------------------------------------------------
 |
@@ -17,7 +27,8 @@ const providers = [
   '@adonisjs/cors/providers/CorsProvider',
   '@adonisjs/lucid/providers/LucidProvider',
   '@adonisjs/mail/providers/MailProvider',
-  '@adonisjs/framework/providers/ViewProvider'
+  '@adonisjs/framework/providers/ViewProvider',
+  'adonis-sentry/providers/Sentry'
 ]
 
 /*
