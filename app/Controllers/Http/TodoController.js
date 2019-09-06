@@ -10,33 +10,32 @@ class TodoController {
     return todos
   }
 
-  async profile ({ request }) {
-    // console.log(request)
+  async profile ({ request, response }) {
+    await request.multipart
+      .file('file', {}, async file => {
+        try {
+          const ContentType = file.headers['content-type']
+          const ACL = 'public-read'
+          // const Key = `${(Math.random() * 100).toString(32)}-${file.clientName}`
+          const Key = `${Date.now()}-${file.clientName}`
 
-    // console.log(Helpers.tmpPath('uploads'))
+          const url = await Drive.put(Key, file.stream, {
+            ContentType,
+            ACL
+          })
 
-    const file = request.file('file', {
-      types: ['image'],
-      size: '2mb'
-    })
-
-    // console.log(request.multipart.file)
-
-    try {
-      // const img = await Drive.get('teste.jpeg')
-      // console.log(img)
-      /* request.multipart.file('profile_pic', {}, async file => {
-        await Drive.disk('s3').put(file.clientName, file.stream)
+          return response.json({
+            url
+          })
+        } catch (err) {
+          return response.status(err.status).json({
+            error: {
+              err_message: err.message
+            }
+          })
+        }
       })
-
-      await request.multipart.process() */
-      // await Drive.disk('s3').put(file.clientName, file.stream)
-      console.log(file.stream)
-    } catch (err) {
-      console.log(err)
-    }
-
-    return 'entrou'
+      .process()
   }
 }
 
