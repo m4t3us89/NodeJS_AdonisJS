@@ -5,15 +5,18 @@ const Schema = use('Schema')
 
 class TodoSchema extends Schema {
   up () {
-    this.create('todos', table => {
-      table.string('descricao', 255).notNullable()
-      table.increments()
-      table.timestamps()
+    this.alter('todos', table => {
+      table
+        .string('file_name')
+        .notNullable()
+        .default('')
     })
   }
 
   down () {
-    this.drop('todos')
+    this.table('todos', table => {
+      // reverse alternations
+    })
   }
 }
 

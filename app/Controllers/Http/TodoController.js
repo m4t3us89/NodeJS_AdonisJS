@@ -37,6 +37,33 @@ class TodoController {
       })
       .process()
   }
+
+  async remove ({ request, response }) {
+    try {
+      const { fileName } = request.only(['fileName'])
+
+      const exists = await Drive.exists(fileName)
+
+      if (exists) {
+        const remove = await Drive.delete(fileName)
+        if (remove) {
+          return response.json({ message: 'Arquivo deletado com sucesso.' })
+        } else {
+          return response
+            .status(400)
+            .json({ message: 'Falha ao exluir arquivo' })
+        }
+      } else {
+        return response.status(404).json({ message: 'Arquivo não encontrado.' })
+      }
+    } catch (err) {
+      return response.status(err.status).json({
+        error: {
+          err_message: err.message
+        }
+      })
+    }
+  }
 }
 
 module.exports = TodoController
