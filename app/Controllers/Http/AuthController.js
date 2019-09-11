@@ -1,10 +1,10 @@
 'use strict'
 
 const User = use('App/Models/User')
-const Mail = use('App/Providers/Mail')
+const Mail = use('MailProvider')
 
 class AuthController {
-  async register ({ request }) {
+  async register ({ request, response }) {
     const data = request.only(['username', 'email', 'password'])
 
     const user = await User.create(data)
@@ -16,8 +16,11 @@ class AuthController {
       others: user.toJSON()
     })
 
-    mail.send()
-
+    try {
+      await mail.send()
+    } catch (err) {
+      return response.status(400).send([{ message: 'Erro Mailgun' }])
+    }
     return user
   }
 

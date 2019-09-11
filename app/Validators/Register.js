@@ -21,7 +21,6 @@ class Register {
   }
 
   async fails (errorMessages) {
-    console.log('entrou')
     return this.ctx.response.status(400).send(errorMessages)
   }
 }
