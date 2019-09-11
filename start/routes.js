@@ -17,9 +17,11 @@
 const Route = use('Route')
 
 Route.group(() => {
-  Route.post('register', 'AuthController.register')
+  Route.post('register', 'AuthController.register').validator('Register')
 
-  Route.post('authenticate', 'AuthController.authenticate')
+  Route.post('authenticate', 'AuthController.authenticate').validator(
+    'Authenticate'
+  )
 }).prefix('api/user')
 
 Route.group(() => {
