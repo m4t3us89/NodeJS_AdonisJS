@@ -3,7 +3,7 @@
 class Authenticate {
   get rules () {
     return {
-      email: 'email|required',
+      email: 'email|required|exists:users,email',
       password: 'required'
     }
   }
@@ -12,7 +12,8 @@ class Authenticate {
     return {
       'email.required': 'Você deve fornecer um endereço de email.',
       'email.email': 'Você deve fornecer um endereço de email válido.',
-      'password.required': 'Você deve fornecer uma senha'
+      'password.required': 'Você deve fornecer uma senha',
+      'email.exists': 'Não foi possível encontrar um usuário com esse email.'
     }
   }
 
