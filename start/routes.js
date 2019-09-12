@@ -33,4 +33,10 @@ Route.group(() => {
   .prefix('api/todo')
   .middleware(['auth'])
 
-// Route.any('*', () => ({ message: 'Rota Não Encontrada.' }))
+Route.any('*', ({ response }) => {
+  return response.status(404).send([
+    {
+      message: 'Rota não encontrada.'
+    }
+  ])
+})
