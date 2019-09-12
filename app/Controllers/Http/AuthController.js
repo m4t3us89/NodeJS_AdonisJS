@@ -2,6 +2,7 @@
 
 const User = use('App/Models/User')
 const Mail = use('MailProvider')
+const Logger = use('Logger')
 
 class AuthController {
   async register ({ request, response }) {
@@ -29,8 +30,16 @@ class AuthController {
 
     try {
       const token = await auth.attempt(email, password)
+
+      Logger.info('request url is %s', request.url())
+
+      Logger.info('request details %j', {
+        url: request.url()
+        // user: auth.user.username()
+      })
       return token
     } catch (err) {
+      console.log(err)
       return response.status(401).send([{ message: 'Password Incorreto.' }])
     }
   }
