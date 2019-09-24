@@ -29,3 +29,11 @@ adonis migration:run
 ### Integração com Sentry
 
 https://www.npmjs.com/package/adonis-sentry
+
+### Validators
+
+Indicative https://indicative.adonisjs.com/validations/master/array
+
+### ORM
+
+Knexjs.org http://knexjs.org/
