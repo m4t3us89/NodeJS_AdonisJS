@@ -1,6 +1,10 @@
 'use strict'
 
 class Register {
+  get validateAll () {
+    return true
+  }
+
   get rules () {
     return {
       username: 'required|unique:users',

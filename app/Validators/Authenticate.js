@@ -1,6 +1,10 @@
 'use strict'
 
 class Authenticate {
+  get validateAll () {
+    return true
+  }
+
   get rules () {
     return {
       email: 'email|required|exists:users,email',
