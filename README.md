@@ -37,3 +37,8 @@ Indicative https://indicative.adonisjs.com/validations/master/array
 ### ORM
 
 Knexjs.org http://knexjs.org/
+
+### Internationalization
+
+https://adonisjs.com/docs/4.1/internationalization
+Arquivos com as mensagens: https://github.com/wemersonrv/adonis-antl-messages/tree/master/resources/locales

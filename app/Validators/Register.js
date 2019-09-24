@@ -1,4 +1,5 @@
 'use strict'
+const Antl = use('Antl')
 
 class Register {
   get validateAll () {
@@ -13,7 +14,7 @@ class Register {
     }
   }
 
-  get messages () {
+  /* get messages () {
     return {
       'email.required': 'Você deve fornecer um endereço de email.',
       'email.unique': 'Já existe um cadastro do e-mail informado.',
@@ -22,6 +23,10 @@ class Register {
       'email.email': 'Você deve fornecer um endereço de email válido.',
       'password.required': 'Você deve fornecer uma senha'
     }
+  } */
+
+  get messages () {
+    return Antl.list('validation')
   }
 
   async fails (errorMessages) {

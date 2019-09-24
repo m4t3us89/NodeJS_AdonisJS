@@ -1,4 +1,5 @@
 'use strict'
+const Antl = use('Antl')
 
 class Authenticate {
   get validateAll () {
@@ -12,13 +13,17 @@ class Authenticate {
     }
   }
 
-  get messages () {
+  /* get messages () {
     return {
       'email.required': 'Você deve fornecer um endereço de email.',
       'email.email': 'Você deve fornecer um endereço de email válido.',
       'password.required': 'Você deve fornecer uma senha',
       'email.exists': 'Não foi possível encontrar um usuário com esse email.'
     }
+  } */
+
+  get messages () {
+    return Antl.list('validation')
   }
 
   async fails (errorMessages) {

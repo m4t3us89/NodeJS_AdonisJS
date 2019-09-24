@@ -32,6 +32,8 @@ const providers = [
   'adonis-sentry/providers/Sentry',
   '@adonisjs/drive/providers/DriveProvider',
   '@adonisjs/validator/providers/ValidatorProvider',
+  '@adonisjs/antl/providers/AntlProvider',
+
   path.join(__dirname, '..', 'providers', 'ExtendValidatorProvider')
 ]
 
