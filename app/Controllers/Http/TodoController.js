@@ -1,11 +1,16 @@
-'use strict'
-
 const Todo = use('App/Models/Todo')
 const Drive = use('Drive')
 
 class TodoController {
-  async index () {
-    const todos = await Todo.all()
+  async index ({ request }) {
+    const { page, per_page, selector, direction } = request.get()
+    if (!selector && !direction) {
+      var todos = await Todo.query().paginate(page, per_page)
+    } else {
+      var todos = await Todo.query()
+        .orderBy(selector, direction)
+        .paginate(page, per_page)
+    }
 
     return todos
   }
@@ -24,9 +29,12 @@ class TodoController {
             ACL
           })
 
-          return response.json({
-            url
+          const todo = await Todo.create({
+            file_name: Key,
+            descricao: Date.now()
           })
+
+          return response.json(todo)
         } catch (err) {
           return response.status(err.status).json({
             error: {
@@ -40,28 +48,44 @@ class TodoController {
 
   async remove ({ request, response }) {
     try {
-      const { fileName } = request.only(['fileName'])
+      const todos = request.only(['selectedRows'])
+      let files = ''
+      todos.selectedRows.forEach(async value => {
+        const exists = await Drive.exists(value.file_name)
 
-      const exists = await Drive.exists(fileName)
+        const todo = await Todo.find(value.id)
 
-      if (exists) {
-        const remove = await Drive.delete(fileName)
-        if (remove) {
-          return response.json({ message: 'Arquivo deletado com sucesso.' })
-        } else {
-          return response
-            .status(400)
-            .json({ message: 'Falha ao exluir arquivo' })
-        }
-      } else {
-        return response.status(404).json({ message: 'Arquivo não encontrado.' })
-      }
+        await todo.delete()
+
+        if (exists) {
+          const remove = await Drive.delete(value.file_name)
+          if (remove) {
+            files = files + value.file_name + ' '
+          }
+          /* if (remove) {
+            return response.json({
+              message: 'Arquivo e TODO deletado com sucesso.'
+            })
+          } else {
+            return response
+              .status(400)
+              .json({ message: 'Falha ao exluir arquivo' })
+          } */
+        } /* else {
+          return response.status(404).json({ message: 'Arquivo não encontrado.' })
+        } */
+      })
+
+      return response.json({
+        files: files,
+        message: 'Todos deletados com sucesso.'
+      })
     } catch (err) {
       return response.status(err.status).json({
         error: {
           err_message: err.message
         }
-      })  
+      })
     }
   }
 }

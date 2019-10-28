@@ -29,9 +29,15 @@ Route.group(() => {
   Route.post('profile', 'TodoController.profile')
   Route.delete('profile', 'TodoController.remove')
   // Route.resource('profile', 'TodoController')
-})
-  .prefix('api/todo')
-  .middleware(['auth'])
+}).prefix('api/todo')
+// .middleware(['auth'])
+
+Route.group(() => {
+  Route.get('', 'JsonPlaceHolderController.index')
+}).prefix('api/jsonplaceholder')
+// .middleware(['auth'])
+
+Route.get('file/:file', 'FileController.show')
 
 Route.any('*', ({ response }) => {
   return response.status(404).send([

@@ -39,8 +39,7 @@ class AuthController {
       })
       return token
     } catch (err) {
-      console.log(err)
-      return response.status(401).send([{ message: 'Password Incorreto.' }])
+      return response.status(400).send([{ message: 'Password Incorreto.' }])
     }
   }
 }

@@ -32,6 +32,7 @@
     "adonis-antl": "^1.0.5",
     "adonis-sentry": "^2.0.2",
     "aws-sdk": "^2.523.0",
+    "axios": "^0.19.0",
     "sqlite3": "^4.1.0"
   },
   "devDependencies": {},
